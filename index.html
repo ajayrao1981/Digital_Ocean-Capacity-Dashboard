@@ -19,6 +19,19 @@
   /* layout: sidebar + main */
   .app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
   .side{background:var(--panel2);border-right:1px solid var(--line);padding:22px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+  
+  /* DigitalOcean Logo Styling */
+  .side .do-logo-container {
+    padding: 0 22px 15px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .side .do-logo-container img {
+    width: 130px;
+    height: auto;
+    display: block;
+  }
+
   .side .logo{display:flex;align-items:center;gap:10px;padding:0 22px 20px}
   .side .logo .d3{display:flex;gap:4px}
   .side .logo .d3 i{width:10px;height:10px;border-radius:50%;display:block}
@@ -113,643 +126,62 @@
   .krow{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
   .krow:last-child{border-bottom:none}
   .krow .k{color:var(--mute);font-size:12px}
-  .krow .val{font-family:var(--mono);font-size:13px}
-  .bignum{font-family:var(--mono);font-size:32px;font-weight:600;line-height:1}
-  .bignum.sub{font-size:12px;color:var(--faint);font-family:var(--sans);margin-top:6px;font-weight:400}
-
-  /* footnote / model note */
-  .modelnote{margin-top:22px;padding:13px 15px;border:1px dashed var(--line);border-radius:8px;color:var(--faint);font-size:10.5px;font-family:var(--mono);line-height:1.6}
-
-  /* drawer (reused for leadership) */
-  .scrim{position:fixed;inset:0;background:rgba(4,8,16,.68);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
-  .scrim.on{opacity:1;pointer-events:auto}
-  .drawer{position:fixed;top:0;right:0;height:100vh;width:min(540px,94vw);background:var(--panel2);border-left:1px solid var(--line);transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);z-index:31;overflow-y:auto}
-  .drawer.on{transform:translateX(0)}
-  .dwrap{padding:26px 30px 60px}
-  .dclose{position:absolute;top:22px;right:24px;background:none;border:1px solid var(--line);color:var(--mute);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px}
-  .dclose:hover{border-color:var(--blue);color:var(--ink)}
-  .deyebrow{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em}
-  .dtitle{font-size:23px;font-weight:600;margin:5px 0 3px}
-  .dcity{color:var(--mute);font-size:13px;font-family:var(--mono)}
-  .dstate{display:inline-flex;align-items:center;gap:7px;margin-top:13px;padding:6px 12px;border-radius:20px;font-size:12px;font-family:var(--mono);font-weight:600}
-  .dstate i{width:9px;height:9px;border-radius:50%}
-  .dstate.r{background:var(--red-bg);color:var(--red)}.dstate.a{background:var(--amber-bg);color:var(--amber)}.dstate.g{background:var(--green-bg);color:var(--green)}
-  .dsec{margin-top:24px}.dsec h3{font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--faint);margin-bottom:11px}
-  .typemetrics{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .tm{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:13px}
-  .tm .tmh{display:flex;align-items:center;justify-content:space-between}
-  .tm .tmn{font-size:12px;font-weight:600}.tm .tms{width:9px;height:9px;border-radius:50%}
-  .tm .row{display:flex;justify-content:space-between;margin-top:8px;font-size:11px}
-  .tm .row .k{color:var(--mute)}.tm .row .v{font-family:var(--mono);color:var(--ink)}
-  .tm .row .v.r{color:var(--red)}.tm .row .v.a{color:var(--amber)}.tm .row .v.g{color:var(--green)}
-  .timeline{position:relative;height:70px;margin:6px 4px 0}
-  .tl-axis{position:absolute;top:36px;left:0;right:0;height:2px;background:var(--line)}
-  .tl-mark{position:absolute;top:28px;width:2px;height:18px;background:var(--faint)}
-  .tl-lab{position:absolute;top:50px;font-family:var(--mono);font-size:9px;color:var(--faint);transform:translateX(-50%)}
-  .tl-pt{position:absolute;top:29px;width:14px;height:14px;border-radius:50%;transform:translate(-50%,0);border:2px solid var(--panel2)}
-  .tl-ptlab{position:absolute;top:6px;font-family:var(--mono);font-size:9.5px;font-weight:600;transform:translateX(-50%);white-space:nowrap}
-  .reco{border:1px solid var(--blue);background:linear-gradient(180deg,rgba(0,128,255,.08),rgba(0,128,255,.02));border-radius:10px;padding:15px 17px}
-  .reco .rh{display:flex;align-items:center;gap:8px;color:var(--blue);font-size:12px;font-weight:600;font-family:var(--mono)}
-  .reco p{color:var(--mute);font-size:12px;margin-top:8px;line-height:1.5}
-  .reco .target{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
-  .reco .target .tc{font-family:var(--mono);font-size:13px;font-weight:600}
-  .reco .target .tcap{color:var(--green);font-family:var(--mono);font-size:11px}
-  .reco .target .thd{color:var(--mute);font-size:10px;margin-top:2px}
-  .reco .cta{margin-top:12px;display:flex;gap:9px}
-  .reco .cta button{flex:1;padding:9px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-family:var(--sans)}
-  .reco .cta button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
-  .tk{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--line)}
-  .tk:last-child{border-bottom:none}
-  .tk .id{font-family:var(--mono);font-size:11px;color:var(--blue);width:72px;flex-shrink:0}
-  .tk .desc{flex:1;font-size:12px}
-  .tk .age{font-family:var(--mono);font-size:10px;color:var(--faint);width:40px;text-align:right;flex-shrink:0}
-
-  @media (max-width:1000px){
-    .app{grid-template-columns:1fr}
-    .side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
-    .summary{grid-template-columns:repeat(2,1fr)}
-    .dcgrid{grid-template-columns:repeat(2,1fr)}
-    .cards2,.cards3{grid-template-columns:1fr}
-    .right{display:none}
-    .tblwrap{overflow-x:auto}
-  }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-  /* data model star schema */
-  .schemagrid{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:20px;align-items:center}
-  .schemacol{display:flex;flex-direction:column;gap:11px}
-  .schemalab{font-size:10px;font-weight:700;letter-spacing:.15em;margin-bottom:2px}
-  .tbox{background:var(--panel);border:1.5px solid var(--line);border-radius:8px;padding:11px 13px}
-  .tbox.dim{border-color:#5a3c7a}
-  .tbox.fact{border-color:#2d6a54}
-  .tname{font-family:var(--mono);font-size:12.5px;font-weight:600;color:#b98fe0}
-  .tdesc{color:var(--mute);font-size:10.5px;margin-top:3px}
-  .schemahub{display:flex;justify-content:center}
-  .hub{background:var(--navy,#0A1633);background:#0A1633;border:2px solid var(--blue);border-radius:12px;padding:20px 18px;text-align:center;width:100%;box-shadow:0 0 24px rgba(0,128,255,.15)}
-  .hubname{font-family:var(--mono);font-size:16px;font-weight:700;color:#fff}
-  .hubpk{font-family:var(--mono);font-size:11px;color:var(--blue);font-weight:600;margin-top:8px}
-  .hubattr{font-family:var(--mono);font-size:11px;color:var(--ice,#CADCFC);color:#CADCFC;margin-top:6px;line-height:1.4}
-
-  /* architecture layers */
-  .archrow{display:flex;align-items:center;gap:16px;border-radius:9px;padding:13px 16px;margin-bottom:9px}
-  .archnum{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-family:var(--mono);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
-  .archbody{flex:1}
-  .archtitle{color:#fff;font-weight:600;font-size:13.5px;margin-bottom:7px}
-  .architems{display:flex;gap:8px;flex-wrap:wrap}
-  .archchip{background:rgba(255,255,255,.12);color:#dfe8f5;font-size:10.5px;padding:3px 10px;border-radius:11px;font-family:var(--mono)}
-  .archtag{color:rgba(255,255,255,.6);font-size:10px;font-family:var(--mono);font-style:italic;text-align:right;width:150px;flex-shrink:0}
-
-  /* RACI pills */
-  .raci{display:inline-block;width:22px;height:22px;line-height:22px;border-radius:5px;font-family:var(--mono);font-size:11px;font-weight:700}
-  .raci.a{background:var(--blue);color:#fff}
-  .raci.r{background:var(--green-bg);color:var(--green)}
-  .raci.o{color:var(--faint)}
-  @media (max-width:1000px){.schemagrid{grid-template-columns:1fr}.archtag{display:none}}
 </style>
 </head>
 <body>
+
 <div class="app">
-  <!-- SIDEBAR -->
-  <nav class="side">
+  <!-- Left Layout Sidebar -->
+  <div class="side">
+    
+    <!-- DigitalOcean Integration Area -->
+    <div class="do-logo-container">
+      <a href="https://github.io" target="_self">
+        <img src="https://wikimedia.org" alt="DigitalOcean Logo">
+      </a>
+    </div>
+
+    <!-- Capacity Health Header -->
     <div class="logo">
-      <div class="d3"><i style="background:var(--red)"></i><i style="background:var(--amber)"></i><i style="background:var(--green)"></i></div>
-      <div><h1>Capacity Health</h1><div class="sub">FLEET + TEAM VIEWS</div></div>
-    </div>
-    <div class="navgroup">
-      <div class="gl">Summary</div>
-      <div class="nav active" data-view="lead"><span class="ic">◈</span>Leadership + Sales<span class="meta">15 DC</span></div>
-    </div>
-    <div class="navgroup">
-      <div class="gl">Team drill-downs</div>
-      <div class="nav" data-view="compute"><span class="ic">▣</span>Compute / Capacity<span class="dotr"></span></div>
-      <div class="nav" data-view="network"><span class="ic">⇄</span>Network<span class="meta">colo</span></div>
-      <div class="nav" data-view="procurement"><span class="ic">⛓</span>Procurement<span class="dotr"></span></div>
-      <div class="nav" data-view="dcops"><span class="ic">⚙</span>DC Ops / Colo</div>
-      <div class="nav" data-view="finance"><span class="ic">$</span>Finance / Planning</div>
-      <div class="nav" data-view="sales"><span class="ic">◎</span>Sales / GTM Ops</div>
-    </div>
-    <div class="navgroup">
-      <div class="gl">Platform</div>
-      <div class="nav" data-view="datamodel"><span class="ic">▦</span>Data Model</div>
-      <div class="nav" data-view="architecture"><span class="ic">⛓</span>Architecture</div>
-      <div class="nav" data-view="governance"><span class="ic">§</span>Governance</div>
-    </div>
-    <div class="navgroup" style="margin-top:12px">
-      <div class="gl">Model</div>
-      <div style="padding:2px 8px;color:var(--faint);font-size:10px;font-family:var(--mono);line-height:1.7">
-        build lead 18wk<br>horizon 6 qtrs<br>refresh daily 06:00
+      <div class="d3"><i style="background:var(--blue)"></i><i style="background:var(--green)"></i></div>
+      <div>
+        <h1>Capacity Health</h1>
+        <div class="sub">v4.2.1-PROD</div>
       </div>
     </div>
-  </nav>
 
-  <!-- MAIN -->
+    <!-- Navigation links sit below this line -->
+    <div class="navgroup">
+      <div class="gl">Views</div>
+      <div class="nav active">
+        <div class="ic">📊</div>
+        <span>Fleet Dashboard</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Main Panel Container -->
   <div class="main">
     <div class="topbar">
-      <div><div class="tt" id="vtitle">Leadership + Sales</div><div class="td" id="vdesc">Fleet health — where capacity is, and where it won't be</div></div>
+      <div>
+        <div class="tt">Capacity Infrastructure Health</div>
+        <div class="td">Fleet view and hypervisor load distribution</div>
+      </div>
       <div class="right">
-        <div class="kv"><div class="l">Build lead</div><div class="v">18 wk</div></div>
-        <div class="kv"><div class="l">Updated</div><div class="v">daily · 06:00</div></div>
-        <div class="live"><i></i>LIVE</div>
+        <div class="kv">
+          <div class="l">Status</div>
+          <div class="live"><i></i>Operational</div>
+        </div>
       </div>
     </div>
-
-    <!-- LEADERSHIP VIEW -->
-    <section class="view active" id="view-lead">
-      <span class="illus">ILLUSTRATIVE DATA · MODEL DEMO</span>
-      <div class="summary" id="lead-summary"></div>
-      <div class="seclab"><h2>Fleet board</h2><span class="hint">click any DC to drill in</span>
-        <div class="legend"><span><i style="background:var(--green)"></i>Green</span><span><i style="background:var(--amber)"></i>Yellow</span><span><i style="background:var(--red)"></i>Red</span></div>
-      </div>
-      <div id="board"></div>
-    </section>
-
-    <!-- COMPUTE VIEW -->
-    <section class="view" id="view-compute">
-      <span class="illus">ILLUSTRATIVE DATA · MODEL DEMO</span>
-      <div class="summary">
-        <div class="stat red"><span class="tick"></span><div class="big" id="c-red">–</div><div class="lab">DCs red on server or GPU</div></div>
-        <div class="stat amber"><span class="tick"></span><div class="big" id="c-amber">–</div><div class="lab">DCs in build window</div></div>
-        <div class="stat blue"><div class="big" id="c-stranded">2</div><div class="lab">DCs with stranded capacity</div></div>
-        <div class="stat blue"><div class="big" id="c-sku">1</div><div class="lab">SKU-fragmentation flags</div></div>
-      </div>
-      <div class="seclab"><h2>Per-DC capacity detail</h2><span class="hint">allocatable vs. demand · run-out vs. 18wk build · sorted by urgency</span></div>
-      <div class="tblwrap"><table id="compute-tbl"></table></div>
-      <div class="modelnote">MODEL · run-out = projected demand crossing allocatable capacity. Stranded = racked-but-not-provisioned. Fragmentation = wrong SKU for demand mix (functionally constrained at low utilization).</div>
-    </section>
-
-    <!-- NETWORK VIEW -->
-    <section class="view" id="view-network">
-      <span class="illus">ILLUSTRATIVE DATA · MODEL DEMO</span>
-      <div class="summary">
-        <div class="stat green"><span class="tick"></span><div class="big" id="n-ok">12</div><div class="lab">DCs with port headroom</div></div>
-        <div class="stat amber"><span class="tick"></span><div class="big" id="n-warn">2</div><div class="lab">uplinks &gt;80% p95</div></div>
-        <div class="stat red"><span class="tick"></span><div class="big" id="n-loa">3</div><div class="lab">cross-connects pending LOA</div></div>
-        <div class="stat blue"><div class="big">colo</div><div class="lab">fabric owned by provider</div></div>
-      </div>
-      <div class="seclab"><h2>Cross-connect &amp; uplink status</h2><span class="hint">our side of the demarc · colo owns the fabric</span></div>
-      <div class="tblwrap"><table id="network-tbl"></table></div>
-      <div class="modelnote">MODEL · network is colo-managed fabric; we track our-side port availability, uplink p95, and pending cross-connect orders (LOA = Letter of Authorization, the paperwork that gates activation).</div>
-    </section>
-
-    <!-- PROCUREMENT VIEW -->
-    <section class="view" id="view-procurement">
-      <span class="illus">ILLUSTRATIVE DATA · MODEL DEMO</span>
-      <div class="summary">
-        <div class="stat green"><span class="tick"></span><div class="big" id="p-funded">3</div><div class="lab">reds with funded order in flight</div></div>
-        <div class="stat red"><span class="tick"></span><div class="big" id="p-nopath">1</div><div class="lab">reds with no path forward</div></div>
-        <div class="stat amber"><span class="tick"></span><div class="big" id="p-open">5</div><div class="lab">open POs against demand</div></div>
-        <div class="stat blue"><div class="big">18wk</div><div class="lab">GPU build lead time (anchor)</div></div>
-      </div>
-      <div class="seclab"><h2>Order pipeline vs. run-out</h2><span class="hint">the funded-vs-no-path distinction leadership can't see</span></div>
-      <div class="tblwrap"><table id="procurement-tbl"></table></div>
-      <div class="modelnote">MODEL · a red with a funded PO landing before run-out is under control; a red with no PO — or a PO landing too late — is the real risk. This view separates them.</div>
-    </section>
-
-    <!-- DC OPS VIEW -->
-    <section class="view" id="view-dcops">
-      <span class="illus">ILLUSTRATIVE DATA · MODEL DEMO</span>
-      <div class="summary">
-        <div class="stat amber"><span class="tick"></span><div class="big" id="o-open">6</div><div class="lab">open remediation items</div></div>
-        <div class="stat red"><span class="tick"></span><div class="big" id="o-stale">2</div><div class="lab">untouched &gt; 14 days</div></div>
-        <div class="stat blue"><div class="big" id="o-rfs">3</div><div class="lab">pending RFS dates</div></div>
-        <div class="stat blue"><div class="big" id="o-hands">4</div><div class="lab">remote-hands scheduled</div></div>
-      </div>
-      <div class="seclab"><h2>Remediation queue · from Jira</h2><span class="hint">cross-team ownership · time-in-state · untouched surfaced first</span></div>
-      <div class="tblwrap"><table id="dcops-tbl"></table></div>
-      <div class="modelnote">MODEL · dashboard reads Jira, doesn't replace it. RFS = Ready-For-Service date from the colo. Untouched items (no assignee, no movement) sort to the top regardless of age.</div>
-    </section>
-
-    <!-- FINANCE VIEW -->
-    <section class="view" id="view-finance">
-      <span class="illus">ILLUSTRATIVE DATA · MODEL DEMO</span>
-      <div class="summary" id="finance-summary"></div>
-      <div class="seclab"><h2>Capex outlook &amp; assumptions</h2><span class="hint">build-vs-defer · demand model transparency</span></div>
-      <div class="cards2">
-        <div class="card">
-          <h3>Demand model assumptions</h3>
-          <div class="krow"><span class="k">Baseline growth</span><span class="val">flat +22% YoY</span></div>
-          <div class="krow"><span class="k">Model type</span><span class="val">linear projection</span></div>
-          <div class="krow"><span class="k">Sales overlay</span><span class="val good">applied (near-term)</span></div>
-          <div class="krow"><span class="k">Horizon</span><span class="val">6 quarters</span></div>
-          <div class="krow"><span class="k">Last calibrated</span><span class="val">this quarter</span></div>
-        </div>
-        <div class="card">
-          <h3>Build vs. defer</h3>
-          <div class="krow"><span class="k">Reds requiring build</span><span class="val warn">2 DCs</span></div>
-          <div class="krow"><span class="k">Reds resolvable by shift</span><span class="val good">3 DCs</span></div>
-          <div class="krow"><span class="k">Capex avoided via shift</span><span class="val good">~2 build cycles</span></div>
-          <div class="krow"><span class="k">Yellow → build window</span><span class="val">4 DCs</span></div>
-          <div class="krow"><span class="k">Cost-to-remediate (est.)</span><span class="val">per-DC in detail</span></div>
-        </div>
-      </div>
-      <div class="seclab"><h2>Cost-to-remediate by DC</h2><span class="hint">only DCs needing capital action</span></div>
-      <div class="tblwrap"><table id="finance-tbl"></table></div>
-      <div class="modelnote">MODEL · shift-resolvable reds avoid capex entirely — capacity moves instead of getting built. This view makes the demand assumptions auditable so planning isn't arguing a black box.</div>
-    </section>
-
-    <!-- SALES VIEW -->
-    <section class="view" id="view-sales">
-      <span class="illus">ILLUSTRATIVE DATA · MODEL DEMO</span>
-      <div class="summary" id="sales-summary"></div>
-      <div class="seclab"><h2>Sellable headroom by region</h2><span class="hint">green = forecast-safe · a red region may still sell if a sister DC has room</span></div>
-      <div class="cards2" id="sales-regions"></div>
-      <div class="modelnote">MODEL · green = sellable headroom after N-1 and forecast. Sales reads the same colors as leadership but asks a different question: where can we commit? A red DC in a region with a green sister may still be sellable via shift.</div>
-    </section>
-
-    <!-- DATA MODEL VIEW -->
-    <section class="view" id="view-datamodel">
-      <span class="illus">CANONICAL MODEL · STAR SCHEMA</span>
-      <div class="seclab"><h2>Canonical capacity data model</h2><span class="hint">one trusted model powers forecasting, AI, governance & every view above</span></div>
-      <div id="schema"></div>
-      <div class="card" style="margin-top:18px">
-        <h3>AI reads the same model</h3>
-        <div style="font-family:var(--mono);font-size:12.5px;color:var(--blue);line-height:1.8">fact_demand + sales_pipeline + fact_capacity &nbsp;→&nbsp; ML forecast &nbsp;→&nbsp; fact_forecast &nbsp;→&nbsp; run-out engine &nbsp;→&nbsp; fact_health</div>
-      </div>
-      <div class="modelnote">SINGLE SOURCE OF TRUTH · one canonical DC ID · immutable historical snapshots · data lineage & audit trail · versioned forecast models · trusted by every consuming team. No separate AI pipeline — leadership dashboards and AI consume the same model.</div>
-    </section>
-
-    <!-- ARCHITECTURE VIEW -->
-    <section class="view" id="view-architecture">
-      <span class="illus">SIX-LAYER PLATFORM</span>
-      <div class="seclab"><h2>System architecture</h2><span class="hint">sources → reconciliation → predictive engine → consumption → AI → copilot</span></div>
-      <div id="archlayers"></div>
-      <div class="modelnote">AI IS AN AUGMENTATION LAYER — decisions stay with people · human-in-the-loop · auditable · governed & secure. Data flows up; nothing skips reconciliation or the model engine, which is what keeps every color deterministic and auditable.</div>
-    </section>
-
-    <!-- GOVERNANCE VIEW -->
-    <section class="view" id="view-governance">
-      <span class="illus">OPERATING MODEL + POLICY</span>
-      <div class="summary">
-        <div class="stat blue"><div class="big">Daily</div><div class="lab">operational review (async)</div></div>
-        <div class="stat blue"><div class="big">Weekly</div><div class="lab">Capacity Review Board</div></div>
-        <div class="stat blue"><div class="big">Monthly</div><div class="lab">Executive Steering</div></div>
-        <div class="stat green"><span class="tick"></span><div class="big">RACI</div><div class="lab">one owner per decision</div></div>
-      </div>
-      <div class="seclab"><h2>Decision rights (RACI)</h2><span class="hint">A = accountable · R = responsible · C = consulted · I = informed</span></div>
-      <div class="tblwrap"><table id="raci-tbl"></table></div>
-      <div class="seclab"><h2>Governance policy</h2><span class="hint">every color carries an obligation · AI advises, humans decide</span></div>
-      <div class="cards3" id="govpolicy"></div>
-      <div class="modelnote">AI GOVERNANCE · AI recommends, predicts, ranks, explains — it never sets a color, approves a build, or closes a ticket. Every recommendation passes a human approval gate. Models reviewed quarterly for drift.</div>
-    </section>
+    
+    <div class="view active">
+      <span class="illus">Fleet Monitoring Console</span>
+      <!-- Main body contents display here -->
+    </div>
   </div>
 </div>
 
-<!-- drawer (leadership) -->
-<div class="scrim" id="scrim" onclick="closeDrawer()"></div>
-<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle"><div class="dwrap" id="dcontent"></div></aside>
-
-<script>
-const BUILD_LT=18, HORIZON_WK=78;
-const fleet=[
-  {code:"IAD-3",city:"Ashburn, VA",region:"US-East",types:{server:{util:71,runout:64},gpu:{util:88,runout:11}},stranded:false,frag:false},
-  {code:"IAD-7",city:"Ashburn, VA",region:"US-East",types:{server:{util:52,runout:90},gpu:{util:60,runout:70}},stranded:false,frag:false},
-  {code:"EWR-2",city:"Newark, NJ",region:"US-East",types:{server:{util:64,runout:52},gpu:{util:74,runout:26}},stranded:false,frag:false},
-  {code:"BOS-1",city:"Boston, MA",region:"US-East",types:{server:{util:45,runout:99},gpu:{util:41,runout:99}},stranded:false,frag:false},
-  {code:"ATL-4",city:"Atlanta, GA",region:"US-East",types:{server:{util:58,runout:80},gpu:{util:55,runout:82}},stranded:true,frag:false},
-  {code:"SFO-2",city:"San Jose, CA",region:"US-West",types:{server:{util:82,runout:20},gpu:{util:93,runout:6}},stranded:false,frag:true},
-  {code:"SFO-5",city:"Santa Clara, CA",region:"US-West",types:{server:{util:48,runout:96},gpu:{util:52,runout:88}},stranded:false,frag:false},
-  {code:"PDX-1",city:"Hillsboro, OR",region:"US-West",types:{server:{util:55,runout:84},gpu:{util:49,runout:92}},stranded:false,frag:false},
-  {code:"LAX-3",city:"Los Angeles, CA",region:"US-West",types:{server:{util:69,runout:40},gpu:{util:70,runout:34}},stranded:false,frag:false},
-  {code:"AMS-1",city:"Amsterdam, NL",region:"EU",types:{server:{util:60,runout:66},gpu:{util:63,runout:48}},stranded:false,frag:false},
-  {code:"FRA-2",city:"Frankfurt, DE",region:"EU",types:{server:{util:76,runout:30},gpu:{util:81,runout:22}},stranded:true,frag:false},
-  {code:"LON-4",city:"London, UK",region:"EU",types:{server:{util:44,runout:99},gpu:{util:47,runout:94}},stranded:false,frag:false},
-  {code:"SGP-1",city:"Singapore",region:"APAC",types:{server:{util:67,runout:44},gpu:{util:72,runout:31}},stranded:false,frag:false},
-  {code:"BLR-2",city:"Bangalore, IN",region:"APAC",types:{server:{util:53,runout:86},gpu:{util:58,runout:76}},stranded:false,frag:false},
-  {code:"TOK-3",city:"Tokyo, JP",region:"APAC",types:{server:{util:50,runout:90},gpu:{util:54,runout:85}},stranded:false,frag:false},
-];
-const varMap={r:"var(--red)",a:"var(--amber)",g:"var(--green)"};
-const nameMap={r:"Red",a:"Yellow",g:"Green"};
-function colorFor(r){return r<BUILD_LT?"r":r<HORIZON_WK?"a":"g";}
-function worst(dc){const c=[colorFor(dc.types.server.runout),colorFor(dc.types.gpu.runout)];return c.includes("r")?"r":c.includes("a")?"a":"g";}
-function minRun(dc){return Math.min(dc.types.server.runout,dc.types.gpu.runout);}
-function bindType(dc){return dc.types.server.runout<=dc.types.gpu.runout?"server":"gpu";}
-function shiftTarget(dc){if(worst(dc)!=="r")return null;const c=fleet.filter(o=>o.region===dc.region&&o.code!==dc.code&&worst(o)==="g");if(!c.length)return null;c.sort((a,b)=>minRun(b)-minRun(a));return c[0];}
-const wk=(v)=>v>=HORIZON_WK?">18mo":v+"w";
-
-// ---------- LEADERSHIP SUMMARY (computed) ----------
-const _greens=fleet.filter(d=>worst(d)==="g").length;
-const _ambers=fleet.filter(d=>worst(d)==="a").length;
-const _reds=fleet.filter(d=>worst(d)==="r");
-const _shiftable=_reds.filter(d=>shiftTarget(d)).length;
-document.getElementById("lead-summary").innerHTML=`
-  <div class="stat green"><span class="tick"></span><div class="big">${_greens}</div><div class="lab">DCs green — sellable headroom</div></div>
-  <div class="stat amber"><span class="tick"></span><div class="big">${_ambers}</div><div class="lab">DCs yellow — time to build</div></div>
-  <div class="stat red"><span class="tick"></span><div class="big">${_reds.length}</div><div class="lab">DCs red — action required now</div></div>
-  <div class="stat blue"><div class="big">${_shiftable}</div><div class="lab">of ${_reds.length} reds resolvable by shift</div></div>`;
-
-// ---------- LEADERSHIP BOARD ----------
-const board=document.getElementById("board");
-[...new Set(fleet.map(d=>d.region))].forEach(rg=>{
-  const dcs=fleet.filter(d=>d.region===rg);const reds=dcs.filter(d=>worst(d)==="r").length;
-  const el=document.createElement("div");el.className="region";
-  el.innerHTML=`<div class="rhead"><span class="rn">${rg}</span><span class="rl"></span><span class="rc">${dcs.length} DC${dcs.length>1?"s":""}${reds?` · ${reds} red`:""}</span></div><div class="dcgrid"></div>`;
-  const grid=el.querySelector(".dcgrid");
-  dcs.forEach(dc=>{
-    const w=worst(dc),sv=colorFor(dc.types.server.runout),gp=colorFor(dc.types.gpu.runout),tgt=shiftTarget(dc);
-    let flag=w==="r"&&tgt?`<div class="flag shift">⇄ shift → ${tgt.code}</div>`:w==="r"?`<div class="flag build">▲ build — no shift target</div>`:w==="a"?`<div class="flag build">▲ build window open</div>`:`<div class="flag ok">✓ headroom</div>`;
-    const card=document.createElement("div");card.className="dc";card.tabIndex=0;card.setAttribute("role","button");
-    card.innerHTML=`<span class="worst" style="background:${varMap[w]}"></span><div class="code">${dc.code}</div><div class="city">${dc.city}</div>
-      <div class="bars"><div class="bar ${sv}"><div class="bl">SRV</div><div class="bd">${wk(dc.types.server.runout)}</div></div><div class="bar ${gp}"><div class="bl">GPU</div><div class="bd">${wk(dc.types.gpu.runout)}</div></div></div>${flag}`;
-    card.onclick=()=>openDrawer(dc);card.onkeydown=(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openDrawer(dc);}};
-    grid.appendChild(card);
-  });
-  board.appendChild(el);
-});
-
-// ---------- COMPUTE TABLE ----------
-(function(){
-  const sorted=[...fleet].sort((a,b)=>minRun(a)-minRun(b));
-  document.getElementById("c-red").textContent=fleet.filter(d=>worst(d)==="r").length;
-  document.getElementById("c-amber").textContent=fleet.filter(d=>worst(d)==="a").length;
-  let rows=sorted.map(dc=>{
-    const w=worst(dc),sv=colorFor(dc.types.server.runout),gp=colorFor(dc.types.gpu.runout),bt=bindType(dc);
-    const tags=[];if(dc.stranded)tags.push(`<span class="pill n">stranded</span>`);if(dc.frag)tags.push(`<span class="pill a">SKU frag</span>`);
-    return `<tr>
-      <td class="mono"><span class="cdot" style="background:${varMap[w]}"></span>${dc.code}</td>
-      <td style="color:var(--faint);font-size:11px">${dc.region}</td>
-      <td class="mono ${sv==='r'?'bad':sv==='a'?'warn':'good'}">${dc.types.server.util}% · ${wk(dc.types.server.runout)}</td>
-      <td class="mono ${gp==='r'?'bad':gp==='a'?'warn':'good'}">${dc.types.gpu.util}% · ${wk(dc.types.gpu.runout)}</td>
-      <td class="mono">${bt.toUpperCase()}</td>
-      <td>${tags.join(" ")||'<span style="color:var(--faint);font-size:11px">—</span>'}</td>
-    </tr>`;
-  }).join("");
-  document.getElementById("compute-tbl").innerHTML=`<thead><tr><th>DC</th><th>Region</th><th>Server (util · run-out)</th><th>GPU (util · run-out)</th><th>Binding</th><th>Flags</th></tr></thead><tbody>${rows}</tbody>`;
-})();
-
-// ---------- NETWORK TABLE ----------
-(function(){
-  // synth network state per DC (colo fabric owned; our-side ports)
-  const net=[
-    ["IAD-3",92,"g",false],["EWR-2",84,"a",true],["SFO-2",78,"g",true],["FRA-2",88,"a",false],
-    ["SGP-1",71,"g",true],["LAX-3",66,"g",false],["AMS-1",59,"g",false],["LON-4",40,"g",false],
-  ];
-  let rows=net.map(([code,p95,st,loa])=>{
-    const dc=fleet.find(d=>d.code===code);
-    return `<tr>
-      <td class="mono">${code}</td>
-      <td style="color:var(--faint);font-size:11px">${dc?dc.region:''}</td>
-      <td class="mono">${100-Math.round(p95*0.4)} ports free</td>
-      <td class="mono ${p95>85?'warn':'good'}">${p95}% p95</td>
-      <td><div class="prog"><i style="width:${p95}%;background:${p95>85?'var(--amber)':'var(--green)'}"></i></div></td>
-      <td>${loa?'<span class="pill a">LOA pending</span>':'<span class="pill g">active</span>'}</td>
-    </tr>`;
-  }).join("");
-  document.getElementById("network-tbl").innerHTML=`<thead><tr><th>DC</th><th>Region</th><th>Ports</th><th>Uplink p95</th><th></th><th>Cross-connect</th></tr></thead><tbody>${rows}</tbody>`;
-})();
-
-// ---------- PROCUREMENT TABLE ----------
-(function(){
-  // orders keyed to red/amber DCs
-  const orders=[
-    ["SFO-2","gpu",6,"PO-8841",14,"funded"],
-    ["IAD-3","gpu",11,"PO-8850",9,"funded"],
-    ["FRA-2","gpu",22,"PO-8863",16,"funded"],
-    ["EWR-2","gpu",26,"—",null,"nopath"],
-    ["LAX-3","gpu",34,"PO-8870",20,"funded"],
-    ["SGP-1","gpu",31,"PO-8872",24,"late"],
-  ];
-  let rows=orders.map(([code,type,runout,po,eta,status])=>{
-    const late = eta!==null && eta>runout;
-    const stCls = status==="nopath"?"r":status==="late"||late?"a":"g";
-    const stTxt = status==="nopath"?"NO PATH":(late?"LANDS LATE":"FUNDED");
-    return `<tr>
-      <td class="mono">${code}</td>
-      <td class="mono">${type.toUpperCase()}</td>
-      <td class="mono ${runout<BUILD_LT?'bad':'warn'}">${runout}w</td>
-      <td class="mono">${po}</td>
-      <td class="mono">${eta!==null?eta+"w ETA":'<span class="bad">none</span>'}</td>
-      <td><span class="pill ${stCls}">${stTxt}</span></td>
-    </tr>`;
-  }).join("");
-  document.getElementById("procurement-tbl").innerHTML=`<thead><tr><th>DC</th><th>Type</th><th>Run-out</th><th>PO</th><th>Delivery</th><th>Status</th></tr></thead><tbody>${rows}</tbody>`;
-})();
-
-// ---------- DC OPS TABLE ----------
-(function(){
-  const tickets=[
-    ["CAP-4390","SFO-2","Rack/stack backlog blocking bring-up","Compute+Ops","stale",22,"—"],
-    ["CAP-4460","FRA-2","Confirm procurement PO covers demand","Procurement","stale",14,"—"],
-    ["CAP-4471","SFO-2","Expedite GPU allocation Q-current","Procurement","prog",3,"—"],
-    ["CAP-4489","SFO-2","Evaluate shift to SFO-5","Compute","prog",1,"—"],
-    ["CAP-4502","EWR-2","SKU mismatch — wrong GPU class","Compute","nopath",9,"—"],
-    ["CAP-4518","IAD-3","Schedule remote-hands install","Ops","prog",2,"RFS +6d"],
-  ];
-  // untouched first
-  const order={stale:0,nopath:1,prog:2};
-  tickets.sort((a,b)=>order[a[4]]-order[b[4]] || b[5]-a[5]);
-  let rows=tickets.map(([id,dc,desc,owner,st,age,rfs])=>{
-    const stCls=st==="prog"?"g":st==="stale"?"r":"a";
-    const stTxt=st==="prog"?"IN PROGRESS":st==="stale"?"UNTOUCHED":"NO PATH";
-    return `<tr>
-      <td class="mono" style="color:var(--blue)">${id}</td>
-      <td class="mono">${dc}</td>
-      <td>${desc}</td>
-      <td style="color:var(--mute);font-size:11px">${owner}</td>
-      <td><span class="pill ${stCls}">${stTxt}</span></td>
-      <td class="mono ${age>14?'bad':'good'}">${age}d</td>
-      <td class="mono" style="font-size:11px;color:var(--faint)">${rfs}</td>
-    </tr>`;
-  }).join("");
-  document.getElementById("dcops-tbl").innerHTML=`<thead><tr><th>Ticket</th><th>DC</th><th>Issue</th><th>Owner(s)</th><th>State</th><th>Age</th><th>RFS</th></tr></thead><tbody>${rows}</tbody>`;
-})();
-
-// ---------- FINANCE TABLE ----------
-(function(){
-  const _r=fleet.filter(d=>worst(d)==="r");
-  const _shift=_r.filter(d=>shiftTarget(d)).length;
-  const _build=_r.length-_shift;
-  const _capexDCs=_build+fleet.filter(d=>worst(d)==="a").length;
-  document.getElementById("finance-summary").innerHTML=`
-    <div class="stat blue"><div class="big">+22%</div><div class="lab">flat YoY demand rate</div></div>
-    <div class="stat amber"><span class="tick"></span><div class="big">${_capexDCs}</div><div class="lab">DCs needing capex this horizon</div></div>
-    <div class="stat blue"><div class="big">${_shift}</div><div class="lab">builds deferrable via shift</div></div>
-    <div class="stat green"><span class="tick"></span><div class="big">$0</div><div class="lab">capex on shift-resolvable reds</div></div>`;
-  const rows=[
-    ["SFO-2","US-West","shift → SFO-5","$0","avoided",1],
-    ["FRA-2","EU","build — no target","1 build cycle","required",0],
-    ["EWR-2","US-East","build — no path yet","1 build cycle","at risk",2],
-    ["IAD-3","US-East","shift → BOS-1","$0","avoided",1],
-    ["LAX-3","US-West","build window","planned","budgeted",0],
-  ];
-  let html=rows.map(([dc,rg,action,capex,status,shift])=>{
-    const stCls=status==="avoided"?"g":status==="at risk"?"r":status==="required"?"a":"b";
-    return `<tr>
-      <td class="mono">${dc}</td>
-      <td style="color:var(--faint);font-size:11px">${rg}</td>
-      <td class="mono" style="font-size:11px">${action}</td>
-      <td class="mono ${capex==='$0'?'good':''}">${capex}</td>
-      <td><span class="pill ${stCls}">${status}</span></td>
-    </tr>`;
-  }).join("");
-  document.getElementById("finance-tbl").innerHTML=`<thead><tr><th>DC</th><th>Region</th><th>Recommended action</th><th>Capex</th><th>Status</th></tr></thead><tbody>${html}</tbody>`;
-})();
-
-// ---------- SALES REGIONS ----------
-(function(){
-  const _g=fleet.filter(d=>worst(d)==="g").length,_a=fleet.filter(d=>worst(d)==="a").length,_r=fleet.filter(d=>worst(d)==="r").length;
-  const _sellableRegions=[...new Set(fleet.map(d=>d.region))].filter(rg=>fleet.some(d=>d.region===rg&&worst(d)==="g")).length;
-  document.getElementById("sales-summary").innerHTML=`
-    <div class="stat green"><span class="tick"></span><div class="big">${_g}</div><div class="lab">DCs safe to commit</div></div>
-    <div class="stat amber"><span class="tick"></span><div class="big">${_a}</div><div class="lab">commit with awareness</div></div>
-    <div class="stat red"><span class="tick"></span><div class="big">${_r}</div><div class="lab">hold — no near-term capacity</div></div>
-    <div class="stat blue"><div class="big">${_sellableRegions}</div><div class="lab">regions with sellable headroom</div></div>`;
-  const el=document.getElementById("sales-regions");
-  [...new Set(fleet.map(d=>d.region))].forEach(rg=>{
-    const dcs=fleet.filter(d=>d.region===rg);
-    const g=dcs.filter(d=>worst(d)==="g").length,a=dcs.filter(d=>worst(d)==="a").length,r=dcs.filter(d=>worst(d)==="r").length;
-    const sellable=g>0;
-    const verdict=r>0&&g>0?["SELL VIA SISTER DC","b"]:g>0?["SAFE TO COMMIT","g"]:a>0?["COMMIT W/ AWARENESS","a"]:["HOLD","r"];
-    const card=document.createElement("div");card.className="card";
-    card.innerHTML=`<h3>${rg} <span style="float:right"><span class="pill ${verdict[1]}">${verdict[0]}</span></span></h3>
-      <div class="krow"><span class="k"><span class="cdot" style="background:var(--green)"></span>Green — sellable</span><span class="val good">${g} DC${g!==1?"s":""}</span></div>
-      <div class="krow"><span class="k"><span class="cdot" style="background:var(--amber)"></span>Yellow — awareness</span><span class="val warn">${a} DC${a!==1?"s":""}</span></div>
-      <div class="krow"><span class="k"><span class="cdot" style="background:var(--red)"></span>Red — hold</span><span class="val ${r?'bad':''}">${r} DC${r!==1?"s":""}</span></div>
-      <div class="krow"><span class="k">Sellable headroom</span><span class="val ${sellable?'good':'bad'}">${sellable?"available":"none near-term"}</span></div>`;
-    el.appendChild(card);
-  });
-})();
-
-// ---------- DRAWER ----------
-const scrim=document.getElementById("scrim"),drawer=document.getElementById("drawer");
-function tlPct(w){return Math.min(w,HORIZON_WK)/HORIZON_WK*100;}
-function openDrawer(dc){
-  const w=worst(dc),sv=colorFor(dc.types.server.runout),gp=colorFor(dc.types.gpu.runout),bind=bindType(dc),bindRunout=dc.types[bind].runout,tgt=shiftTarget(dc);
-  const stateWord=w==="r"?"Red — action required":w==="a"?"Yellow — build window open":"Green — headroom";
-  const runPct=tlPct(bindRunout),buildPct=tlPct(BUILD_LT);
-  let reco='';
-  if(w==="r"&&tgt){const tRun=minRun(tgt);
-    reco=`<div class="dsec"><h3>Recommended resolution</h3><div class="reco"><div class="rh">⇄ SHIFT — faster than build</div>
-      <p>${dc.code} runs out in <b style="color:var(--red)">${bindRunout} wk</b> on ${bind.toUpperCase()}, before an ${BUILD_LT}-wk build finishes. A same-region DC has headroom.</p>
-      <div class="target"><div><div class="tc">${tgt.code}</div><div class="thd">${tgt.city} · same region</div></div><div style="text-align:right"><div class="tcap">${wk(tRun)} runway</div><div class="thd">after its own forecast</div></div></div>
-      <div class="cta"><button class="primary">Model shift impact</button><button>Open build ticket instead</button></div></div></div>`;
-  } else if(w==="r"){
-    reco=`<div class="dsec"><h3>Recommended resolution</h3><div class="reco" style="border-color:var(--amber);background:linear-gradient(180deg,rgba(239,159,39,.08),transparent)"><div class="rh" style="color:var(--amber)">▲ BUILD — no valid shift target</div>
-      <p>Every DC in ${dc.region} is constrained. Capacity must be built — ${bindRunout} wk to run-out vs. ${BUILD_LT}-wk lead time.</p>
-      <div class="cta"><button class="primary">Open procurement ticket</button></div></div></div>`;
-  }
-  const tickets=w==="g"?[]:(w==="r"?[
-    {id:"CAP-4471",d:"Expedite GPU allocation",st:"prog",lab:"IN PROGRESS",age:"3d"},
-    {id:"CAP-4489",d:"Evaluate shift to "+(tgt?tgt.code:"—"),st:"prog",lab:"IN PROGRESS",age:"1d"},
-    {id:"CAP-4390",d:"Rack/stack backlog",st:"stale",lab:"UNTOUCHED",age:"22d"},
-    {id:"CAP-4502",d:"SKU mismatch in inventory",st:"nopath",lab:"NO PATH",age:"9d"},
-  ]:[
-    {id:"CAP-4515",d:"Forecast breach next quarter",st:"prog",lab:"IN PROGRESS",age:"5d"},
-    {id:"CAP-4460",d:"Confirm PO covers demand",st:"stale",lab:"UNTOUCHED",age:"14d"},
-  ]);
-  const pillCls={prog:"g",stale:"r",nopath:"a"};
-  let jira=tickets.length?`<div class="dsec"><h3>Remediation · from Jira</h3>${tickets.map(t=>`<div class="tk"><span class="id">${t.id}</span><span class="desc">${t.d}</span><span class="pill ${pillCls[t.st]}">${t.lab}</span><span class="age">${t.age}</span></div>`).join("")}<p style="color:var(--faint);font-size:10.5px;font-family:var(--mono);margin-top:9px">▸ ${tickets.filter(t=>t.st!=="prog").length} item(s) not being worked</p></div>`:"";
-  document.getElementById("dcontent").innerHTML=`<button class="dclose" onclick="closeDrawer()" aria-label="Close">✕</button>
-    <div class="deyebrow">${dc.region} · COLO</div><div class="dtitle" id="dtitle">${dc.code}</div><div class="dcity">${dc.city}</div>
-    <div class="dstate ${w}"><i style="background:${varMap[w]}"></i>${stateWord}</div>
-    <div class="dsec"><h3>Why this color</h3><div class="typemetrics">
-      <div class="tm"><div class="tmh"><span class="tmn">Servers</span><span class="tms" style="background:${varMap[sv]}"></span></div>
-        <div class="row"><span class="k">Utilization</span><span class="v">${dc.types.server.util}%</span></div><div class="row"><span class="k">Run-out</span><span class="v ${sv}">${dc.types.server.runout>=HORIZON_WK?'beyond horizon':dc.types.server.runout+' wk'}</span></div><div class="row"><span class="k">vs build</span><span class="v">${BUILD_LT} wk</span></div></div>
-      <div class="tm"><div class="tmh"><span class="tmn">GPU</span><span class="tms" style="background:${varMap[gp]}"></span></div>
-        <div class="row"><span class="k">Utilization</span><span class="v">${dc.types.gpu.util}%</span></div><div class="row"><span class="k">Run-out</span><span class="v ${gp}">${dc.types.gpu.runout>=HORIZON_WK?'beyond horizon':dc.types.gpu.runout+' wk'}</span></div><div class="row"><span class="k">vs build</span><span class="v">${BUILD_LT} wk</span></div></div>
-    </div></div>
-    <div class="dsec"><h3>Run-out projection · binding = ${bind.toUpperCase()}</h3><div class="timeline"><div class="tl-axis"></div>
-      <div class="tl-mark" style="left:0"></div><div class="tl-lab" style="left:0;transform:none">now</div>
-      <div class="tl-mark" style="left:${buildPct}%"></div><div class="tl-lab" style="left:${buildPct}%">build ${BUILD_LT}w</div>
-      <div class="tl-mark" style="left:100%"></div><div class="tl-lab" style="left:100%;transform:translateX(-100%)">horizon</div>
-      <div class="tl-pt" style="left:${runPct}%;background:${varMap[w]}"></div><div class="tl-ptlab" style="left:${runPct}%;color:${varMap[w]}">run-out ${bindRunout>=HORIZON_WK?'>horizon':bindRunout+'w'}</div></div></div>
-    ${reco}${jira}
-    <div class="modelnote">runout = demand crossing capacity (flat YoY + sales overlay). red &lt;${BUILD_LT}w · yellow ${BUILD_LT}–${HORIZON_WK}w · green beyond. Shift target = same-region with headroom after its own forecast.</div>`;
-  scrim.classList.add("on");drawer.classList.add("on");drawer.scrollTop=0;document.body.style.overflow="hidden";
-}
-function closeDrawer(){scrim.classList.remove("on");drawer.classList.remove("on");document.body.style.overflow="";}
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
-
-// ---------- DATA MODEL (star schema) ----------
-(function(){
-  const dims=[["dim_region","geography hierarchy"],["dim_gpu_sku","H100, B200, …"],["dim_server_sku","compute inventory"],["dim_time","forecast horizon"]];
-  const facts=[["fact_capacity","allocatable now"],["fact_demand","historical consumption"],["fact_forecast","ML + baseline demand"],["fact_health","run-out · color · confidence"],["fact_remediation","Jira tickets & ownership"],["fact_shift","same-region candidates"]];
-  const el=document.getElementById("schema");
-  el.innerHTML=`<div class="schemagrid">
-    <div class="schemacol">
-      <div class="schemalab" style="color:#b98fe0">DIMENSIONS</div>
-      ${dims.map(d=>`<div class="tbox dim"><div class="tname">${d[0]}</div><div class="tdesc">${d[1]}</div></div>`).join("")}
-    </div>
-    <div class="schemahub">
-      <div class="hub">
-        <div class="hubname">dim_datacenter</div>
-        <div class="hubpk">DC_ID (canonical PK)</div>
-        <div class="hubattr">region · country · AZ<br>colo provider</div>
-      </div>
-    </div>
-    <div class="schemacol">
-      <div class="schemalab" style="color:var(--green)">FACTS</div>
-      ${facts.map(f=>`<div class="tbox fact"><div class="tname" style="color:var(--green)">${f[0]}</div><div class="tdesc">${f[1]}</div></div>`).join("")}
-    </div>
-  </div>`;
-})();
-
-// ---------- ARCHITECTURE (six layers) ----------
-(function(){
-  const layers=[
-    ["1","Unreconciled source telemetry","#0f2a52",["BMS / DC asset tracker","Network fabric tool","Power management sys"],"Daily cron JSON extract / API pull"],
-    ["2","Ingestion, reconciliation & fault tolerance","#14432f",["Schema translation Lambda","Staging DB (valid)","Dead-letter queue (failures) → page"],"Canonical DC ID · gray-status check"],
-    ["3","Predictive computation engine","#5a3410",["Baseline demand","Sales commit pipelines","Regression → run-out → multi-red rollup"],"Nightly batch"],
-    ["4","Enterprise consumption & integrations","#3a2a5c",["Dashboard core DB (R/Y/G fleet)","Kafka event broker","Jira hooks · auto CAP ticket on yellow"],"fleet.health.events · capacity.alerts"],
-    ["5","AI / ML augmentation","#0d3b4a",["Demand forecasting (Prophet/LSTM)","Anomaly detection","Capacity risk scoring"],"advisory only"],
-    ["6","AI copilot & natural-language interface","#4a1f3f",["Ask in plain language","Intelligent recommendations","Explainability & justification"],"human-in-the-loop"],
-  ];
-  document.getElementById("archlayers").innerHTML=layers.map(l=>`
-    <div class="archrow" style="background:${l[1]}">
-      <div class="archnum">${l[0]}</div>
-      <div class="archbody">
-        <div class="archtitle">${l[2]}</div>
-        <div class="architems">${l[3].map(x=>`<span class="archchip">${x}</span>`).join("")}</div>
-      </div>
-      <div class="archtag">${l[4]}</div>
-    </div>`).join("");
-})();
-
-// ---------- GOVERNANCE (RACI + policy) ----------
-(function(){
-  const raci=[["Decision","Cap Eng","Procure","DC Ops","Sales","TPM"],
-    ["Capacity forecast","A","C","C","C","R"],["Run-out approval","A","C","C","C","R"],
-    ["Build approval","C","A","C","I","R"],["Workload shift","A","I","A","C","R"],["Exec escalation","C","C","C","I","A"]];
-  const cell=(c)=>c==="A"?`<span class="raci a">A</span>`:c==="R"?`<span class="raci r">R</span>`:`<span class="raci o">${c}</span>`;
-  let head=`<thead><tr>${raci[0].map((h,i)=>`<th${i===0?'':' style="text-align:center"'}>${h}</th>`).join("")}</tr></thead>`;
-  let body=`<tbody>${raci.slice(1).map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(c=>`<td style="text-align:center">${cell(c)}</td>`).join("")}</tr>`).join("")}</tbody>`;
-  document.getElementById("raci-tbl").innerHTML=head+body;
-
-  const pol=[
-    ["Threshold policy","Yellow auto-opens a review, Jira ticket, named owner, ETA. Red adds exec notification, recovery plan, daily status."],
-    ["Forecast policy","Baseline + sales pipeline + launches + reserved capacity. Reviewed weekly, accuracy tracked monthly."],
-    ["Data policy","Single canonical DC ID, schema validation, mandatory quality score, versioned mappings, audit logs. No manual edits."],
-    ["AI policy","Advisory never authoritative. Recommends, predicts, explains — never sets a color or closes a ticket. Human gate."],
-    ["Risk policy","Every Red carries owner, business impact, cost, mitigation plan, escalation date — a managed risk, not a flag."],
-    ["Capacity policy","Every DC daily carries forecast, run-out, owner, remediation plan, confidence score. No exceptions."],
-  ];
-  document.getElementById("govpolicy").innerHTML=pol.map(p=>`<div class="card"><h3 style="color:var(--ink)">${p[0]}</h3><div style="color:var(--mute);font-size:12px;line-height:1.5">${p[1]}</div></div>`).join("");
-})();
-
-// ---------- VIEW SWITCHER ----------
-const titles={
-  lead:["Leadership + Sales","Fleet health — where capacity is, and where it won't be"],
-  compute:["Compute / Capacity Eng","Per-SKU allocatable vs. demand, run-out, stranded & fragmented capacity"],
-  network:["Network Engineering","Cross-connect & uplink headroom — our side of the colo demarc"],
-  procurement:["Supply Chain / Procurement","Order pipeline vs. run-out — funded vs. no-path reds"],
-  dcops:["DC Ops / Colo Mgmt","Remediation queue, RFS dates, remote-hands — from Jira"],
-  finance:["Finance / Capacity Planning","Capex outlook, demand assumptions, build-vs-defer"],
-  sales:["Sales / GTM Ops","Sellable headroom by region — where can we commit?"],
-  datamodel:["Data Model","Canonical star schema — one trusted model behind every view"],
-  architecture:["System Architecture","Six-layer platform — sources to AI copilot"],
-  governance:["Governance","Operating model, decision rights, and policy layer"],
-};
-document.querySelectorAll(".nav").forEach(n=>{
-  n.onclick=()=>{
-    const v=n.dataset.view;
-    document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
-    n.classList.add("active");
-    document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
-    document.getElementById("view-"+v).classList.add("active");
-    document.getElementById("vtitle").textContent=titles[v][0];
-    document.getElementById("vdesc").textContent=titles[v][1];
-    document.querySelector(".main").scrollTop=0;window.scrollTo(0,0);
-  };
-});
-</script>
 </body>
 </html>
