@@ -16,12 +16,11 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.4}
-  
-  /* Layout configuration: sidebar + main dashboard area */
+  /* layout: sidebar + main */
   .app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
   .side{background:var(--panel2);border-right:1px solid var(--line);padding:22px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
   
-  /* DigitalOcean Logo Container Placement Rules */
+  /* DigitalOcean Logo Styling */
   .side .do-logo-container {
     padding: 0 22px 15px;
     border-bottom: 1px solid var(--line);
@@ -63,7 +62,7 @@
   .view.active{display:block}
   .illus{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:3px 9px;color:var(--mute);font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;margin-bottom:18px}
 
-  /* Core layout component definitions */
+  /* shared bits */
   .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px}
   .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;position:relative}
   .stat .big{font-family:var(--mono);font-size:27px;font-weight:600;line-height:1}
@@ -81,7 +80,7 @@
   .legend span{display:flex;align-items:center;gap:6px;color:var(--mute);font-size:11px}
   .legend i{width:9px;height:9px;border-radius:2px}
 
-  /* Cluster view cards configuration */
+  /* leadership board */
   .region{margin-bottom:20px}
   .rhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
   .rhead .rn{font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.05em}
@@ -102,7 +101,7 @@
   .dc .flag{margin-top:9px;font-size:9.5px;font-family:var(--mono);display:flex;align-items:center;gap:4px}
   .flag.shift{color:var(--blue)}.flag.build{color:var(--amber)}.flag.ok{color:var(--faint)}
 
-  /* General metrics data grids */
+  /* generic data table */
   table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
   thead th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);padding:12px 14px;border-bottom:1px solid var(--line);font-weight:600;white-space:nowrap}
   tbody td{padding:12px 14px;font-size:12.5px;border-bottom:1px solid var(--line)}
@@ -115,9 +114,11 @@
   .cdot{width:8px;height:8px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:7px}
   .bad{color:var(--red)}.warn{color:var(--amber)}.good{color:var(--green)}
 
+  /* mini progress bar in cells */
   .prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;min-width:70px;margin-top:5px}
   .prog i{display:block;height:100%;border-radius:3px}
 
+  /* two-col cards for finance/sales */
   .cards2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:18px}
@@ -125,26 +126,22 @@
   .krow{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
   .krow:last-child{border-bottom:none}
   .krow .k{color:var(--mute);font-size:12px}
-  
-  /* Restored structural syntax elements */
-  .krow .val{font-family:var(--mono);font-size:13px}
-  .bignum{font-family:var(--mono);font-size:24px;font-weight:600;margin-top:4px}
 </style>
 </head>
 <body>
 
 <div class="app">
-  <!-- Left Side Sidebar Panel Navigation -->
+  <!-- Left Layout Sidebar -->
   <div class="side">
     
-    <!-- DigitalOcean Corporate Logo Embedding Block -->
+    <!-- DigitalOcean Integration Area -->
     <div class="do-logo-container">
       <a href="https://github.io" target="_self">
         <img src="https://wikimedia.org" alt="DigitalOcean Logo">
       </a>
     </div>
 
-    <!-- Original Capacity Health Site Header -->
+    <!-- Capacity Health Header -->
     <div class="logo">
       <div class="d3"><i style="background:var(--blue)"></i><i style="background:var(--green)"></i></div>
       <div>
@@ -153,7 +150,7 @@
       </div>
     </div>
 
-    <!-- Navigation List Menu Links -->
+    <!-- Navigation links sit below this line -->
     <div class="navgroup">
       <div class="gl">Views</div>
       <div class="nav active">
@@ -161,9 +158,10 @@
         <span>Fleet Dashboard</span>
       </div>
     </div>
+
   </div>
 
-  <!-- Right Side Interactive Content Console -->
+  <!-- Right Main Panel Container -->
   <div class="main">
     <div class="topbar">
       <div>
@@ -176,3 +174,14 @@
           <div class="live"><i></i>Operational</div>
         </div>
       </div>
+    </div>
+    
+    <div class="view active">
+      <span class="illus">Fleet Monitoring Console</span>
+      <!-- Main body contents display here -->
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
